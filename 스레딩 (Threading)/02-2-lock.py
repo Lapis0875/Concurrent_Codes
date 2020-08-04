@@ -7,26 +7,20 @@ lock = Lock()
 
 def worker_A():
     global count
-    lock.acquire()
-    try:
+    with lock:
         while count < 10:
             count += 1
             print(f"[worker A] increasing counter to {count}")
             sleep(1)
-    finally:
-        lock.release()
 
 
 def worker_B():
     global count
-    lock.acquire()
-    try:
+    with lock:
         while count > -10:
             count -= 1
             print(f"[worker B] decreasing counter to {count}")
             sleep(1)
-    finally:
-        lock.release()
 
 
 def main():
